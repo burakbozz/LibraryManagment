@@ -1,6 +1,4 @@
-﻿
-
-namespace LibraryManagment.ConsoleUI;
+﻿namespace LibraryManagment.ConsoleUI.Models;
 
 public record Author(
     int Id,

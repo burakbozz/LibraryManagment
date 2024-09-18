@@ -1,6 +1,4 @@
-﻿
-
-namespace LibraryManagment.ConsoleUI;
+﻿namespace LibraryManagment.ConsoleUI.Models;
 
 public record Book(
     int Id,
@@ -10,7 +8,7 @@ public record Book(
     string PublisDate,
     int Stock,
     string ISBN
-    
+
 
 
     );

@@ -35,20 +35,15 @@
 
 //kullanıcıdan page index ve page size değerleri alarak sayfalama desteği getiriniz.
 
-using LibraryManagment.ConsoleUI;
+using LibraryManagment.ConsoleUI.Models;
+using LibraryManagment.ConsoleUI.Service;
 
-List<Book> books = new List<Book>()
-{
-    new Book(1,"Germinal","Kömür Madeni",341,"2012 mayıs",15,"1234560"),
-    new Book(2,"Suç ve Ceza","raskolnikaovun hayatı",315,"2010 Haziran",10,"1234570"),
-    new Book(3,"Kumarbaz","Bir öğretmenin hayatı",210,"2009 ocak",10,"1234580"),
-    new Book(4,"Araba sevdası","Arabayla alakası olmayan kitap",180,"1999 Haziran",10,"1234590"),
-    new Book(5,"Ateşten Gömlek","Kurtuluş Savaş",315,"2001 Haziran",10,"1234510"),
-    new Book(6,"Kaşağı","kitap",315,"1993 Haziran",10,"1234511"),
-    new Book(7,"28 şampiyonluk","Hayak ürünü",150,"1993 Haziran",10,"1234512"),
-    new Book(8,"16 yıl şampiyonluk","Hayak ürünü",350,"1995 Haziran",10,"1234513"),
 
-};
+BookService bookService = new BookService();
+
+//bookService.GetAll();
+bookService.GetById(2);
+
 
 List<Author> authors = new List<Author>()
 {
@@ -81,15 +76,15 @@ List<Category> categories = new List<Category>()
 //    Console.WriteLine(category);
 //}
 
-void GetAllBooks()
-{
-    Console.WriteLine("Kitapları Listele");
-    Console.WriteLine("--------------------------------");
-    foreach (Book book in books)
-    {
-        Console.WriteLine(book);
-    }
-}
+//void GetAllBooks()
+//{
+//    Console.WriteLine("Kitapları Listele");
+//    Console.WriteLine("--------------------------------");
+//    foreach (Book book in books)
+//    {
+//        Console.WriteLine(book);
+//    }
+//}
 void GetAllAuthors()
 {
     Console.WriteLine("Yazarları Listele");
@@ -124,67 +119,7 @@ void PrintAyrac(string metin)
     Console.WriteLine("-------------------");
 }
 
-void GetAllBooksByPageSizeFilter()
-{
-    PrintAyrac("sayfa sayısına göre filtreleme");
-    Console.WriteLine("Lütfen minumum değeri giriniz.");
-    int min = Convert.ToInt32(Console.ReadLine());
 
-    Console.WriteLine("Lütfen maximum değeri giriniz.");
-    int max = Convert.ToInt32(Console.ReadLine());
-
-    foreach (Book book in books)
-    {
-        if (book.PageSize <= max && book.PageSize >= min)
-        {
-            Console.WriteLine(book);
-        }
-    }
-
-
-}
-//GetAllBooksByPageSizeFilter();
-
-void PageSizeTotalCalculator()
-{
-    int total = 0;
-    foreach (Book book in books)
-    {
-        total = total + book.PageSize;
-    }
-    Console.WriteLine(total);
-}
-
-//PageSizeTotalCalculator();
-
-void GetAllBooksByTitleContains()
-{
-    Console.WriteLine("Lütfen kitap başlığını giriniz: ");
-    string text = Console.ReadLine();
-
-    foreach (Book book in books)
-    {
-        if (book.Title.Contains(text, StringComparison.InvariantCultureIgnoreCase))
-        {
-            Console.WriteLine(book);
-        }
-    }
-}
-
-//GetAllBooksByTitleContains();
-
-void GetBookByISBN()
-{
-    Console.WriteLine("lütfen isnb no giriniz.");
-    string isbn = Console.ReadLine();
-    foreach (Book book in books)
-    {
-        if (book.ISBN == isbn)
-        {
-            Console.WriteLine(book);
-        }
-    }
-}
 
 //GetBookByISBN();
 
@@ -216,21 +151,21 @@ Book GetBookInputs2()
     return book;
 }
 
-bool AddBookValidator(Book book)
-{
-    bool isUnique = true;
+//bool AddBookValidator(Book book)
+//{
+//    bool isUnique = true;
 
-    foreach (Book item in books)
-    {
-        if (item.Id == book.Id || item.ISBN == book.ISBN)
-        {
-            isUnique = false;
-            break;
-        }
-    }
+//    foreach (Book item in books)
+//    {
+//        if (item.Id == book.Id || item.ISBN == book.ISBN)
+//        {
+//            isUnique = false;
+//            break;
+//        }
+//    }
 
-    return isUnique;
-}
+//    return isUnique;
+//}
 
 void GetBookInputs(out int id,
      out string title,
@@ -262,32 +197,32 @@ void GetBookInputs(out int id,
     stock = Convert.ToInt32(Console.ReadLine());
 }
 
-void AddBook()
-{
-    //1. Yöntem
-    //int id;
-    //string title;
-    //string description;
-    //int pageSize;
-    //string publishDate;
-    //stock
-    //string isbn;
+//void AddBook()
+//{
+//    //1. Yöntem
+//    //int id;
+//    //string title;
+//    //string description;
+//    //int pageSize;
+//    //string publishDate;
+//    //stock
+//    //string isbn;
 
 
-    //GetBookInputs(out id,out title,out description,out pageSize,out publishDate,out isbn);
-    Book book = GetBookInputs2();
+//    //GetBookInputs(out id,out title,out description,out pageSize,out publishDate,out isbn);
+//    Book book = GetBookInputs2();
 
-    bool isUnique = AddBookValidator(book);
+//    bool isUnique = AddBookValidator(book);
 
-    if (!isUnique)
-    {
-        Console.WriteLine("Girmiş olduğunuz kitap Benzersiz değil.");
-        return;
-    }
+//    if (!isUnique)
+//    {
+//        Console.WriteLine("Girmiş olduğunuz kitap Benzersiz değil.");
+//        return;
+//    }
 
-    books.Add(book);
-    GetAllBooks();
-}
+//    books.Add(book);
+//    GetAllBooks();
+//}
 
 //AddBook();
 Category GetCategoryInputs()
@@ -386,4 +321,8 @@ void AddAuthor()
     GetAllAuthors();
 }
 
-AddAuthor();
+//AddAuthor();
+
+
+
+

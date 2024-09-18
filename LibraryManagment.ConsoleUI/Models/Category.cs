@@ -1,12 +1,10 @@
-﻿
-
-namespace LibraryManagment.ConsoleUI;
+﻿namespace LibraryManagment.ConsoleUI.Models;
 
 public class Category
 {
     public Category()
     {
-        
+
     }
 
     public Category(int id, string name)
