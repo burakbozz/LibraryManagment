@@ -45,9 +45,75 @@ public class BookService
     {
         Book? book = bookRepository.GetBookByISBN(isbn);
         if (book is null) {
-            Console.WriteLine($"Aradığınız ISNM numarına göre kitap bulunamadı {isbn}");
+            Console.WriteLine($"Aradığınız ISbM numarına göre kitap bulunamadı {isbn}");
             return;
         }
         Console.WriteLine(book);
     }
+
+    public void Add(Book book) 
+    {
+        Book created = bookRepository.Add(book);
+        Console.WriteLine("kitap eklendi");
+        Console.WriteLine(created);
+    }
+    public void GetAllBooksPageSizeFilter(int min, int max) 
+    {
+        List<Book> books = bookRepository.GetAllBooksByPageSizeFilter(min, max);
+
+        foreach (Book book in books)
+        {
+            Console.WriteLine(book);
+        }
+
+    }
+    public void GetAllBooksByTitleContains(string title)
+    {
+        List<Book> books = bookRepository.GetAllBooksByTitleContains(title);
+
+        foreach (Book book in books)
+        {
+            Console.WriteLine(book);
+
+        }
+        
+    }
+    public void GetAllBookOrderByTitle()
+    {
+        List<Book> books = bookRepository.GetAllBookOrderByTitle();
+
+        foreach (Book book in books)
+        {
+            Console.WriteLine(book);
+
+        }
+
+    }
+    public void GetAllBookOrderByTitleDescending()
+    {
+        List<Book> books = bookRepository.GetAllBookOrderByTitleDescending();
+
+        foreach (Book book in books)
+        {
+            Console.WriteLine(book);
+
+        }
+
+    }
+    public void GetBookMinPageSize()
+    {
+        Book book = bookRepository.GetBookMinPageSize();
+        Console.WriteLine(book);
+    }
+    public void GetBookMaxPageSize()
+    {
+        Book book = bookRepository.GetBookMaxPageSize();
+        Console.WriteLine(book);
+    }
+
+    public void GetDetails()
+    {
+
+    }
+
 }

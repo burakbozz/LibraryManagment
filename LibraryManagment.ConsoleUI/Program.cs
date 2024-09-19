@@ -41,8 +41,13 @@ using LibraryManagment.ConsoleUI.Service;
 
 BookService bookService = new BookService();
 
-//bookService.GetAll();
-bookService.GetById(2);
+bookService.GetAll();
+//bookService.GetById(2);
+//bookService.Remove(55);
+//bookService.GetBookByISBN("1234560");
+//bookService.GetAllBooksByTitleContains("Kumarbaz");
+//bookService.GetBookMinPageSize();
+//bookService.GetBookMaxPageSize();
 
 
 List<Author> authors = new List<Author>()
@@ -56,13 +61,7 @@ List<Author> authors = new List<Author>()
 
 };
 
-List<Category> categories = new List<Category>()
-{
-    new Category(1,"Dünya klasikleri"),
-    new Category(2,"Türk Klasikleri"),
-    new Category(3,"Bilim Kurgu"),
 
-};
 //foreach (Author author in authors)
 //{
 //    Console.WriteLine(author);
@@ -147,7 +146,7 @@ Book GetBookInputs2()
     int stock = Convert.ToInt32(Console.ReadLine());
 
 
-    Book book = new Book(id, title, description, pageSize, publishDate,stock,isbn);
+    Book book = new Book(id,1, title, description, pageSize, publishDate,stock,isbn);
     return book;
 }
 
