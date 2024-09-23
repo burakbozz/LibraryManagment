@@ -1,4 +1,5 @@
 ﻿using LibraryManagment.ConsoleUI.Models;
+using LibraryManagment.ConsoleUI.Models.Dtos;
 using LibraryManagment.ConsoleUI.Repository;
 using System;
 using System.Collections.Generic;
@@ -53,6 +54,16 @@ public class BookService
 
     public void Add(Book book) 
     {
+        Book? getByIdBook = bookRepository.GetById(book.Id);
+        if (getByIdBook is not null) {
+            Console.WriteLine($"girmiş olduğunuz kitabın id alanı benzersiz olmalıdır. {book.Id}");
+            return ;
+        }
+        Book? getBookByISBN = bookRepository.GetBookByISBN(book.ISBN);
+        if (getByIdBook is not null) {
+            Console.WriteLine($"girmiş olduğunuz kitabın İSBN alanı benzersiz olmalıdır. {book.ISBN}");
+            return;
+        }
         Book created = bookRepository.Add(book);
         Console.WriteLine("kitap eklendi");
         Console.WriteLine(created);
@@ -111,7 +122,31 @@ public class BookService
         Console.WriteLine(book);
     }
 
-    public void GetDetails()
+    public void GetDetailsV2()
+    {
+        List<BookDetailDto> books = bookRepository.GetDetailsV2();
+        foreach (BookDetailDto bookDetail in books)
+        {
+            Console.WriteLine(bookDetail);
+        }
+    }
+    public void GetAllBookAndAuthorDetails()
+    {
+        List<BookDetailDto> details = bookRepository.GetAllBookAndAuthorDetails();
+        details.ForEach(x => Console.WriteLine(x));
+    }
+
+    public void GetAllDetailsByCategoryId(int categoryId)
+    {
+        List<BookDetailDto> details = bookRepository.GetAllDetailsByCategoryId(categoryId);
+        details.ForEach(x => Console.WriteLine(x));
+    }
+
+    private void BookIdBusinessRules(int id)
+    {
+        
+    }
+    private void BookISBNBusinessRules(int isbn)
     {
 
     }

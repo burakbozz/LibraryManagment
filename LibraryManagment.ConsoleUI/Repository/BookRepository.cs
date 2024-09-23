@@ -9,16 +9,28 @@ namespace LibraryManagment.ConsoleUI.Repository;
 
 public class BookRepository
 {
+    List<Author> authors = new List<Author>()
+    {
+    new Author(1,"Emile","Zola"),
+    new Author(2,"Fyodor","Dostoyevski"),
+    new Author(3,"Recaizade Mahmut","Ekrem"),
+    new Author(4,"Halide edip","Adıvar"),
+    new Author(5,"Ömer","Seyfettin"),
+    new Author(6,"Ali","Koç"),
+
+    };
+
+
     List<Book> books = new List<Book>()
    {
-    new Book(1,1,"Germinal","Kömür Madeni",341,"2012 mayıs",15,"1234560"),
-    new Book(2,1,"Suç ve Ceza","raskolnikaovun hayatı",315,"2010 Haziran",10,"1234570"),
-    new Book(3,1,"Kumarbaz","Bir öğretmenin hayatı",210,"2009 ocak",10,"1234580"),
-    new Book(4,1,"Araba sevdası","Arabayla alakası olmayan kitap",180,"1999 Haziran",10,"1234590"),
-    new Book(5,2,"Ateşten Gömlek","Kurtuluş Savaş",315,"2001 Haziran",10,"1234510"),
-    new Book(6,2,"Kaşağı","kitap",315,"1993 Haziran",10,"1234511"),
-    new Book(7,3,"28 şampiyonluk","Hayak ürünü",150,"1993 Haziran",10,"1234512"),
-    new Book(8,3,"16 yıl şampiyonluk","Hayak ürünü",350,"1995 Haziran",10,"1234513"),
+    new Book(1,1,1,"Germinal","Kömür Madeni",341,"2012 mayıs",15,"1234560"),
+    new Book(2,1,2,"Suç ve Ceza","raskolnikaovun hayatı",315,"2010 Haziran",10,"1234570"),
+    new Book(3,1,3,"Kumarbaz","Bir öğretmenin hayatı",210,"2009 ocak",10,"1234580"),
+    new Book(4,1,4,"Araba sevdası","Arabayla alakası olmayan kitap",180,"1999 Haziran",10,"1234590"),
+    new Book(5,2,5,"Ateşten Gömlek","Kurtuluş Savaş",315,"2001 Haziran",10,"1234510"),
+    new Book(6,2,6,"Kaşağı","kitap",315,"1993 Haziran",10,"1234511"),
+    new Book(7,3,6,"28 şampiyonluk","Hayak ürünü",150,"1993 Haziran",10,"1234512"),
+    new Book(8,3,6,"16 yıl şampiyonluk","Hayak ürünü",350,"1995 Haziran",10,"1234513"),
 
    };
 
@@ -162,15 +174,95 @@ public class BookRepository
 
     };
 
-    public List<BookDetailDto> GetDeteails()
+    public List<BookDetailDto> GetDetails()
     {
         var result =
-            from b in books join c in categories
+            from b in books
+            join c in categories
             on b.CategoryId equals c.Id
             select new BookDetailDto(
                 Id: b.Id,
                 CategoryName: c.Name,
+                "",
+                Title: b.Title,
+                Description: b.Description,
+                PageSize: b.PageSize,
+                PublishDate: b.PublishDate,
+                Stock:b.Stock,
+                ISBN: b.ISBN
+                );
 
-                )
+        return result.ToList();
     }
+
+    public List<BookDetailDto> GetDetailsV2()
+    {
+        List<BookDetailDto> details =
+            books.Join(categories,
+
+            b => b.CategoryId,
+            c => c.Id,
+            (book, category) => new BookDetailDto(
+                Id: book.Id,
+                CategoryName: category.Name,
+                "",
+                Title: book.Title,
+                Description: book.Description,
+                PageSize: book.PageSize,
+                PublishDate: book.PublishDate,
+                Stock: book.Stock,
+                ISBN: book.ISBN
+                )
+            ).ToList();
+
+        return details;
+    }
+
+    public List<BookDetailDto> GetAllBookAndAuthorDetails()
+    {
+        var result =
+            from b in books
+            join c in categories on b.CategoryId equals c.Id
+            join a in authors on b.AuthorId equals a.Id
+            
+            select new BookDetailDto(
+                Id: b.Id,
+                CategoryName: c.Name,
+                AuthorName : $"{a.Name} {a.Surname}",
+                Title: b.Title,
+                Description: b.Description,
+                PageSize: b.PageSize,
+                PublishDate: b.PublishDate,
+                Stock: b.Stock,
+                ISBN: b.ISBN
+                );
+
+        return result.ToList();
+
+        
+    }
+
+    public List<BookDetailDto> GetAllDetailsByCategoryId(int categoryId)
+    {
+        var result =            
+            from b in books
+            where b.CategoryId == categoryId
+            join c in categories on b.CategoryId equals c.Id
+            join a in authors on b.AuthorId equals a.Id
+            
+            select new BookDetailDto(
+                Id: b.Id,
+                CategoryName: c.Name,
+                AuthorName: $"{a.Name} {a.Surname}",
+                Title: b.Title,
+                Description: b.Description,
+                PageSize: b.PageSize,
+                PublishDate: b.PublishDate,
+                Stock: b.Stock,
+                ISBN: b.ISBN
+                );
+
+        return result.ToList();
+    }
+    
 }

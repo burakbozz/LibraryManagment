@@ -1,12 +1,15 @@
-﻿namespace LibraryManagment.ConsoleUI.Models;
+﻿using System.Globalization;
+
+namespace LibraryManagment.ConsoleUI.Models;
 
 public record Book(
     int Id,
     int CategoryId,
+    int AuthorId,
     string Title,
     string Description,
     int PageSize,
-    string PublisDate,
+    string PublishDate,
     int Stock,
     string ISBN
 

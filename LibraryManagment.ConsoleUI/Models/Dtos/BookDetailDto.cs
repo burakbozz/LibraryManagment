@@ -6,11 +6,15 @@ using System.Threading.Tasks;
 
 namespace LibraryManagment.ConsoleUI.Models.Dtos;
 
-public record BookDetailDto(int CategoryName,
+public record BookDetailDto(
+    int Id,
+    string CategoryName,
+    string AuthorName,
     string Title,
     string Description,
     int PageSize,
-    string PublisDate,
+    string PublishDate,
     int Stock,
-    string ISBN);
+    string ISBN
+    );
 
